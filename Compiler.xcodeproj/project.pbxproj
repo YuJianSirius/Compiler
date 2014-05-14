@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9166E75B18FD6038000AAAF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9166E75A18FD6038000AAAF4 /* Foundation.framework */; };
-		9166E75E18FD6038000AAAF4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9166E75D18FD6038000AAAF4 /* main.m */; };
 		9166E76218FD6038000AAAF4 /* Compiler.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9166E76118FD6038000AAAF4 /* Compiler.1 */; };
+		9166E76918FD6076000AAAF4 /* LexicalAnalysis.c in Sources */ = {isa = PBXBuildFile; fileRef = 9166E76818FD6076000AAAF4 /* LexicalAnalysis.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,11 +26,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		912AA7B2191FD44000357C8A /* options.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = options.txt; sourceTree = "<group>"; };
 		9166E75718FD6038000AAAF4 /* Compiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Compiler; sourceTree = BUILT_PRODUCTS_DIR; };
 		9166E75A18FD6038000AAAF4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		9166E75D18FD6038000AAAF4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9166E76018FD6038000AAAF4 /* Compiler-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Compiler-Prefix.pch"; sourceTree = "<group>"; };
 		9166E76118FD6038000AAAF4 /* Compiler.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Compiler.1; sourceTree = "<group>"; };
+		9166E76818FD6076000AAAF4 /* LexicalAnalysis.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LexicalAnalysis.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,8 +74,9 @@
 		9166E75C18FD6038000AAAF4 /* Compiler */ = {
 			isa = PBXGroup;
 			children = (
-				9166E75D18FD6038000AAAF4 /* main.m */,
 				9166E76118FD6038000AAAF4 /* Compiler.1 */,
+				9166E76818FD6076000AAAF4 /* LexicalAnalysis.c */,
+				912AA7B2191FD44000357C8A /* options.txt */,
 				9166E75F18FD6038000AAAF4 /* Supporting Files */,
 			);
 			path = Compiler;
@@ -139,7 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9166E75E18FD6038000AAAF4 /* main.m in Sources */,
+				9166E76918FD6076000AAAF4 /* LexicalAnalysis.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +255,7 @@
 				9166E76718FD6038000AAAF4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
