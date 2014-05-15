@@ -65,7 +65,7 @@ char *boundword[] = {"=",";",",","\"",":","(",")","."};
 #define CHAR_VAL    52   //字符常量
 #define FLOAT_VAL   53   //单精度浮点数常量
 #define DOUBEL_VAL  54   //双精度浮点数常量
-#define CONSTANT_DESC " 常量"
+#define CONSTANT_DESC "常量"
 
 //运算符
 #define ADD 60   //+
@@ -89,6 +89,9 @@ char *boundword[] = {"=",";",",","\"",":","(",")","."};
 #define NOTE1 150 // //注释//
 #define NOTE2 151 // /*注释*/
 #define NOTE_DESC "注释"
+
+#define HEADER 160 // 头文件
+#define HEADER_DESC "头文件"
 
 #define MAX_CHAR_NUMBER   100000
 char charSET[MAX_CHAR_NUMBER];
@@ -210,11 +213,17 @@ int marchID(char *word)
     return IDENTIFER;
 }
 
-
-void commentary(char *CharSET)
+void preProcess(char *word, int line)
 {
+    const char *head_define = "define";
+    const char *head_include = "include";
+    
+    
+    
+    
     
 }
+
 
 int main(){
     
@@ -238,18 +247,35 @@ int main(){
         
         //处理注释
         if (ch == '/') {
-            count = 0;
-            while (ch != ' ' && ch != '\n') {
-                ch = fgetc(fp);
-                tmp[count] = ch;
-                count++;
+            ch = fgetc(fp);
+            
+            //处理    //类型//
+            if(ch == '/') {
+                while (ch != ' ' && ch != '\n') {
+                    ch = fgetc(fp);
+                }
+                createNewNode("空", NOTE_DESC, NOTE1, -1, line);
             }
-            word = (char *)malloc(sizeof(char)*count);
-            memcpy(word, tmp, count);
-            //putchar(ch);
-            word[count] = '\0';
-            //createNewNode(word, NOTE_DESC, NOTE1, 0 , 0);
-            //printf("time");
+            
+            //处理    /*类型注释*/
+            else if(ch == '*'){
+                line++;
+                ch = fgetc(fp);
+                while (ch != '*'){
+                    ch = fgetc(fp);
+                    if(ch == '\n'){
+                        line++;
+                    }
+                }while (ch != '/'){
+                    ch = fgetc(fp);
+                }
+                createNewNode("空", NOTE_DESC, NOTE2, -1, line);
+            }
+            
+            //处理 运算符/
+            else {
+                createNewNode("/", OPERATOR_DESC, DIV, -1, line);
+            }
         }
         
         //处理关键字和标识符
@@ -328,6 +354,24 @@ int main(){
             fseek(fp,-1L,SEEK_CUR);//向后回退一位
         }
         
+        //处理换行
+        else if(ch == ' ' || ch == '\t' || ch == '\r' || ch =='\n' ){
+            if(ch == '\n'){
+                line++;
+            }
+        }
+        
+        //处理头文件和宏常量(预处理)
+        else if(ch == '#'){
+            
+        }
+    
+        else if(ch == '*'){
+            createNewNode("*", OPERATOR_DESC, MUL, -1, line);
+        }
+        
+        
+        
         else if(ch == ';'){
             createNewNode(";", BOUNTWROD_DESC, SEM, -1, line);
         }
@@ -364,9 +408,5 @@ int main(){
     fclose(fp);
     
     displaynormalNode();
-    
-    for(int i = 0; i < count; i++){
-        //printf("%c",word);
-    }
     
 }
