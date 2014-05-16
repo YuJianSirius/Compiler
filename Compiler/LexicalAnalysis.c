@@ -370,7 +370,13 @@ int main(){
             createNewNode("*", OPERATOR_DESC, MUL, -1, line);
         }
         
+        else if(ch == '>'){
+            createNewNode(">", OPERATOR_DESC, GTEATER_THAN, -1, line);
+        }
         
+        else if(ch == '>'){
+            createNewNode("<", OPERATOR_DESC, LEFT_PAR, -1, line);
+        }
         
         else if(ch == ';'){
             createNewNode(";", BOUNTWROD_DESC, SEM, -1, line);
