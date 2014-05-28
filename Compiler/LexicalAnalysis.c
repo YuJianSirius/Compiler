@@ -19,7 +19,7 @@ char *keyword[] = {"auto","double","int","struct","break","else","long","switch"
 char *operator[] = {"+", "-" ,"*", "/" , "<" ,">"};
     
 // ---------------- 限界符表 ----------------------
-char *boundword[] = {"=",";",",","\"",":","(",")","."};
+char *boundword[] = {"=",";",",","\"",":","(",")"};
 
 //关键词种别码
 #define AUTO       1
@@ -65,7 +65,8 @@ char *boundword[] = {"=",";",",","\"",":","(",")","."};
 #define CHAR_VAL    52   //字符常量
 #define FLOAT_VAL   53   //单精度浮点数常量
 #define DOUBEL_VAL  54   //双精度浮点数常量
-#define CONSTANT_DESC "常量"
+#define MACRO_VAL   55   //宏常量
+#define CONSTANT_DESC "常量的"
 
 //运算符
 #define ADD 60   //+
@@ -186,7 +187,7 @@ int createIdeNode(char *content,char *describe,int type,int address,int line)
 void displaynormalNode()
 {
     NormalNode *p = normalHead;
-    
+
     printf("%6内容%10描述%8种别码%5内存地址%6行号\n");
     
     while ( (p = p -> next)) {
@@ -217,11 +218,47 @@ void preProcess(char *word, int line)
 {
     const char *head_define = "define";
     const char *head_include = "include";
-    
-    
-    
-    
-    
+    char * p_include,*p_define;
+    int flag = 0;
+    p_include = strstr(word,head_include);
+    if(p_include!=NULL)
+    {
+        flag = 1;
+        int i;
+        for(i=7;;)
+        {
+            if(*(p_include+i) == ' ' || *(p_include+i) == '\t')
+            {
+                i++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        createNewNode(p_include+i,HEADER_DESC,HEADER,-1,line);
+    }
+    else
+    {
+        p_define = strstr(word,head_define);
+        if(p_define!=NULL)
+        {
+            flag = 1;
+            int i;
+            for(i=7;;)
+            {
+                if(*(p_define+i) == ' ' || *(p_define+i) == '\t')
+                {
+                    i++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            createNewNode(p_define+i,CONSTANT_DESC,MACRO_VAL,-1,line);
+        }
+    }
 }
 
 
@@ -281,7 +318,7 @@ int main(){
         //处理关键字和标识符
         if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_'){
             count = 0;
-            while ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_') {
+            while ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_' || (ch >= '0' && ch<= '9')) {
                 tmp[count++] = ch;
                 ch = fgetc(fp);
             }
@@ -363,7 +400,17 @@ int main(){
         
         //处理头文件和宏常量(预处理)
         else if(ch == '#'){
-            
+            count = 0;
+            while(ch!='\n' && ch!=EOF)
+            {
+                tmp[count++] = ch;
+                ch = fgetc(fp);
+            }
+            word = (char *)malloc(sizeof(char)*(count+1));
+            memcpy(word,tmp,count);
+            word[count] = '\0';
+            preProcess(word,line);
+            fseek(fp,-1L,SEEK_CUR);
         }
     
         else if(ch == '*'){
