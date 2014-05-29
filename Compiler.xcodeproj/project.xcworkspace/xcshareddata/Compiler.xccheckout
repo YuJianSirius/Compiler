@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>B7C7F4D4-8A90-4990-9DA0-06E5510A472B</string>
+	<string>CAFF12B9-965C-489E-AAB1-54174C903D0E</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Compiler</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -21,7 +21,7 @@
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/YuJianSirius/Compiler.git</string>
+	<string>https://github.com/YuJianSirius/shutterbug.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
